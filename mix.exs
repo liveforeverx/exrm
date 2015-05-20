@@ -13,7 +13,7 @@ defmodule ReleaseManager.Mixfile do
   def application, do: []
 
   def deps do
-    [{:conform, "~> 0.13.0"},
+    [{:conform, github: "liveforeverx/conform", branch: "corrupting_case"},
      {:earmark, "~> 0.1", only: :dev},
      {:ex_doc, "~> 0.5", only: :dev}]
   end
