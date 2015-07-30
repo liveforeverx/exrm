@@ -97,8 +97,10 @@ defmodule ReleaseManager.Utils do
         :relx.do [{:upfrom, '#{last_release}'} | relx_args], ['release', 'relup', 'tar']
     end
     case result do
-      {:ok, _state} -> :ok
-      {:error, _e}  -> {:error, "Failed to build release. Please fix any errors and try again."}
+      {:ok, _state} ->
+        :ok
+      {:error, e}  ->
+        {:error, "Failed to build release. Please fix any errors and try again. Error: #{inspect e}"}
     end
   end
 
