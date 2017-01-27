@@ -433,7 +433,8 @@ defmodule Mix.Tasks.Release do
   end
 
   defp parse_args(argv) do
-    {args, _, _} = OptionParser.parse(argv)
+    {args1, _, args2} = OptionParser.parse(argv)
+    args = args1 ++ args2
     defaults = %Config{
       name:    Mix.Project.config |> Keyword.get(:app) |> Atom.to_string,
       version: Mix.Project.config |> Keyword.get(:version),
@@ -445,6 +446,9 @@ defmodule Mix.Tasks.Release do
           verbosity = String.to_atom(verbosity)
           Logger.configure(verbosity)
           %{config | :verbosity => verbosity}
+        {"--" <> key, value} ->
+          key = key |> String.replace("-", "_") |> String.to_atom
+          Map.put(config, key, value || true)
         {key, value} ->
           Map.put(config, key, value)
       end
